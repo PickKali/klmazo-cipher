@@ -1,95 +1,162 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KLMAZO-Cipher</title>
 
     <!-- Nunito -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="https://fav.farm/😵‍💫" />
-    <link href="pico.orange.css" rel = "stylesheet">
+    <link href="pico.orange.css" rel="stylesheet" />
+    <script src="jquery-3.7.1.min.js"></script>
     <script src="ciphers.js"></script>
-</head> 
-<body>
+  </head>
+  <body>
     <header id="toppart" class="container">
-        <article>
-            <h1>KLMAZO Cipher(s)</h1>
-            <h6>Here's a really cursed set of ciphers.</h6>
-        </article>
+      <article>
+        <h1>KLMAZO Cipher(s)</h1>
+        <h6>Here's a really cursed set of ciphers.</h6>
+      </article>
     </header>
     <!-- Interactable -->
     <main class="container">
-        <article>
-            <textarea rows="13" id="input">Yes, this is a default text box.</textarea>
-            <article class="dropdown">
-                <select id="dropcontent">
-                    <option selected disabled value="">Select Cipher</option>
-                    <option id="K" style="background-color: #f5a9b8; color: #000;">K</option>
-                    <option id="L" style="background-color: #ffaa90; color: #000;">L</option>
-                    <option id="M" style="background-color: #aeffae; color: #000;">M</option>
-                    <option id="A" style="background-color: #fff899; color: #000;">A</option>
-                    <option id="Z" style="background-color: #9988dd; color: #000;">Z</option>
-                    <option id="O" style="background-color: #493457; color: #fff">O</option>
-                </select>
-                <button id="encodetoggle"><b>Encoding</b></button>
-            </article>
-            <input id="output">
-            <button id="copy"><b>Copy Output</b></button>
+      <article>
+        <textarea rows="3" id="input">
+Yes, this is a default text box.</textarea
+        >
+        <article class="dropdown">
+          <select id="dropcontent">
+            <option selected disabled value="">Select Cipher</option>
+            <option id="K" style="background-color: #f5a9b8; color: #000">
+              K
+            </option>
+            <option id="L" style="background-color: #ffaa90; color: #000">
+              L
+            </option>
+            <option id="M" style="background-color: #aeffae; color: #000">
+              M
+            </option>
+            <option id="A" style="background-color: #fff899; color: #000">
+              A
+            </option>
+            <option id="Z" style="background-color: #9988dd; color: #000">
+              Z
+            </option>
+            <option id="O" style="background-color: #493457; color: #fff">
+              O
+            </option>
+          </select>
+          <button id="encodetoggle"><b>Encoding</b></button>
         </article>
+        <input id="output" readonly/>
+        <button id="copy"><b>Copy Output</b></button>
+      </article>
     </main>
     <div id="toppart" class="container">
-        <article>
+      <article>
         <h2>How do these even work?</h2>
-            <details>
-                <summary role="button" class="outline contrast">K Toggle: Biscuit Cipher</summary>
-                <article>
-                    <header>Gets the first letter and last letter, reverses the remaining until there no more letters.</header>
-                        <b>The quick brown fox jumps over the lazy dog.</b><br>
-                        <b>T.gheod q yuizackl  behrot wnre fvoox s jpmu</b>
-                    <footer><i>It's like a cat making biscuits!</i></footer>
-                </article>
-            </details>
-            <details>
-                <summary role="button" class="outline contrast">L Toggle: Adjacent Scrabble Cipher</summary>
-                <article>
-                    <header>This cipher takes each vowel and changes it to the sum of the scrabble point values of the adjacent characters. A = 0, E = 1, I = 2, O = 3, U = 4.</header>
-                <b>The quick brown fox jumps over the lazy dog.</b><br>
-                <b>Th5 q15ick br8wn f15x j15mps 7v6r th5 l11zy d7g.</b>
-                <br><i>What? No blank tiles?</i>
-                </article>
-            </details>
-            <details>
-                <summary role="button" class="outline contrast">M Toggle: ALICE THREE Cipher</summary>
-                <article>
-                    <header>There was a Alice in Borderland promotional poster that uses the card value to get the specific letter from a card suit.
-                This isn't very good for longer messages.</header>
-                <b>The quick brown fox jumps over the lazy dog.</b><br>
-                <b>♥♥♥♥♥h♠♠♠♠♠ q♣♣♣♦♦♣k ♣♣♣♣♥♥♥♥♦♦♦♦♦wn f♦♦♦♦♦x j♣♣♣♦♦♦♦♠♠s ♦♦♦♦♦v♠♠♠♠♠♥♥♥♥ ♥♥♥♥♥h♠♠♠♠♠ ♣♣♠♠♠zy ♠♠♠♠♦♦♦♦♦g.</b>
-                <br><i>This doesn't even show up in the series.</i>
-                </article>
-            </details>
-            <details>
-                <summary role="button" class="outline contrast">A Toggle: Kijetesantakalu Ike Cipher</summary>
-                <article>   
-                    <header>Removes letters not in the Toki Pona alphabet, replaces them with number row symbols, then moves them after the message.</header>
-                    <br>
-                    <b>The quick brown fox jumps over the lazy dog.</b><br>
-                    <b>T e  ui k   own  o  jumps o e  t e la    o .🦝^ &@ !* $)  (* ^ +- #%</b>
-                    <br><i>I wonder what the kijetesantakalu is doing with those.</i>
-                </article> 
-            </details>
-            <details>
-                <summary role="button" class="outline contrast">Z Toggle: TBD</summary>
-                
-            </details>
-            <details>
-                <summary role="button" class="outline contrast">O Toggle: TBD</summary>
-                
-            </details>
-        </article>
+        <details>
+          <summary role="button" class="outline contrast">
+            K Toggle: Biscuit Cipher
+          </summary>
+          <article>
+            <header>
+              Gets the first letter and last letter, reverses the remaining
+              until there no more letters.
+            </header>
+            <b>The quick brown fox jumps over the lazy dog.</b><br />
+            <b>T.gheod q yuizackl behrot wnre fvoox s jpmu</b>
+            <article>
+              Here's what it is step by step for the first iterations.
+              <table>
+                <thead>
+                  <tr>
+                    <th>Storage</th>
+                    <th>Remaining</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>T.</td>
+                    <td>he quick brown fox jumps over the lazy dog</td>
+                  </tr>
+                  <tr>
+                    <td>T.</td>
+                    <td>god yzal eht revo spmuj xof nworb kciuq eh</td>
+                  </tr>
+                  <tr>
+                    <td>T.gh</td>
+                    <td>od yzal eht revo spmuj xof nworb kciuq e</td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
+            <footer><i>It's like a cat making biscuits!</i></footer>
+          </article>
+        </details>
+        <details>
+          <summary role="button" class="outline contrast">
+            L Toggle: Adjacent Scrabble Cipher
+          </summary>
+          <article>
+            <header>
+              This cipher takes each vowel and changes it to the sum of the
+              scrabble point values of the adjacent characters. A = 0, E = 1, I
+              = 2, O = 3, U = 4.
+            </header>
+            <b>The quick brown fox jumps over the lazy dog.</b><br />
+            <b>Th5 q15ick br8wn f15x j15mps 7v6r th5 l11zy d7g.</b>
+            <br /><i>What? No blank tiles?</i>
+          </article>
+        </details>
+        <details>
+          <summary role="button" class="outline contrast">
+            M Toggle: ALICE THREE Cipher
+          </summary>
+          <article>
+            <header>
+              There was a Alice in Borderland promotional poster that uses the
+              card value to get the specific letter from a card suit.
+            </header>
+            <b>The quick brown fox jumps over the lazy dog.</b><br />
+            <b>T🂱🂥 q🃓🃂🃑k 🃔🂴🃅wn f🃅x j🃓🃄🂢🂡 🃅v🂥🂴 🂵🂱🂥 🃒🂣zy 🂤🃅g.</b>
+            <br /><i>This doesn't even show up in the series.</i>
+          </article>
+        </details>
+        <details>
+          <summary role="button" class="outline contrast">
+            A Toggle: Kijetesantakalu Ike Cipher
+          </summary>
+          <article>
+            <header>
+              Removes letters not in the Toki Pona alphabet, replaces them with
+              number row symbols, then moves them after the message.
+            </header>
+            <br />
+            <b>The quick brown fox jumps over the lazy dog.</b><br />
+            <b
+              >T e  ui k   own  o  jumps o e  t e la    o .🦝^ &@ !* $)  (* ^ +- #%</b
+            >
+            <br /><i>I wonder what the kijetesantakalu is doing with those.</i>
+          </article>
+        </details>
+        <details>
+          <summary role="button" class="outline contrast">
+            Z Toggle: TBD
+          </summary>
+        </details>
+        <details>
+          <summary role="button" class="outline contrast">
+            O Toggle: TBD
+          </summary>
+        </details>
+      </article>
     </div>
-</body>
+  </body>
 </html>
