@@ -209,16 +209,16 @@ function A_encode(input) {
       bin += "ඞ";
     }
     i++;
-    if (bin.length == 4){
-      bin = bin.replaceAll("ඞ","0");
-      waste += parseInt(bin,2).toString(16).toUpperCase();
+    if (bin.length == 4) {
+      bin = bin.replaceAll("ඞ", "0");
+      waste += parseInt(bin, 2).toString(16).toUpperCase();
       bin = "";
     }
   }
-  if (bin.length > 0){
-    bin.padEnd(4,"ඞ");
-    bin = bin.replaceAll("ඞ","0");
-    waste += parseInt(bin,2).toString(16).toUpperCase();
+  if (bin.length > 0) {
+    bin.padEnd(4, "ඞ");
+    bin = bin.replaceAll("ඞ", "0");
+    waste += parseInt(bin, 2).toString(16).toUpperCase();
   }
   encode = encode + kijetesantakalu + waste;
   encode = encode.replaceAll("¬", " ");
@@ -229,36 +229,40 @@ function A_decode(input) {
   input = input.replaceAll(" ", "¬");
   let chunks = input.split("🦝");
   let start = chunks[0];
-  chunks = chunks[1].split("🗑️");
-  for (let pair of angry){
-    chunks[0] = chunks[0].replaceAll(pair[1],pair[0]);
+  if (chunks[1] == undefined) {
+    return "Error";
   }
-  if (start && chunks){
+  chunks = chunks[1].split("🗑️");
+  for (let pair of angry) {
+    chunks[0] = chunks[0].replaceAll(pair[1], pair[0]);
+  }
+  if (start && chunks) {
     let split = [];
-    for (let i = 0; i < chunks[1].length; i += 2){
-      split.push(chunks[1].substring(i, i+2));
+    for (let i = 0; i < chunks[1].length; i += 2) {
+      split.push(chunks[1].substring(i, i + 2));
     }
-    if (split[split.length-1].length == 1){
-      split[split.length-1] += "0";
+    if (split[split.length - 1].length == 1) {
+      split[split.length - 1] += "0";
     }
     let bin = "";
-    for (let pair in split){
-      let nibble = parseInt(split[pair],16).toString(2);
-      while (nibble.length < 8){
+    for (let pair in split) {
+      let nibble = parseInt(split[pair], 16).toString(2);
+      while (nibble.length < 8) {
         nibble = "0" + nibble;
       }
       bin += nibble;
     }
-    let i = 0, j = 0;
-    for (let bit of bin){
-      if (bit == "1"){
-        if (chunks[0][i] == null){
+    let i = 0,
+      j = 0;
+    for (let bit of bin) {
+      if (bit == "1") {
+        if (chunks[0][i] == null) {
           continue;
         }
         decode += chunks[0][i];
         i++;
       } else {
-        if (start[j] == null){
+        if (start[j] == null) {
           continue;
         }
         decode += start[j];
@@ -278,20 +282,20 @@ let globalOut = "";
 const output = $("#output");
 function update() {
   let outputText = finalInput;
-    switch (currentCipher) {
-      case "K":
-        outputText = encoding ? K_encode(finalInput) : K_decode(finalInput);
-        break;
-      case "L":
-        outputText = encoding ? L_encode(finalInput) : L_decode(finalInput);
-        break;
-      case "M":
-        outputText = encoding ? M_encode(finalInput) : M_decode(finalInput);
-        break;
-      case "A":
-        outputText = encoding ? A_encode(finalInput) : A_decode(finalInput);
-        break;
-    }
+  switch (currentCipher) {
+    case "K":
+      outputText = encoding ? K_encode(finalInput) : K_decode(finalInput);
+      break;
+    case "L":
+      outputText = encoding ? L_encode(finalInput) : L_decode(finalInput);
+      break;
+    case "M":
+      outputText = encoding ? M_encode(finalInput) : M_decode(finalInput);
+      break;
+    case "A":
+      outputText = encoding ? A_encode(finalInput) : A_decode(finalInput);
+      break;
+  }
   $("#output").val(outputText);
   globalOut = outputText;
 }
