@@ -238,9 +238,6 @@ function A_decode(input) {
   }
   if (start && chunks) {
     let split = chunks[1].split("");
-    if (split[split.length - 1].length == 1) {
-      split[split.length - 1] += "0";
-    }
     let bin = "";
     for (let pair in split) {
       let nibble = parseInt(split[pair], 16).toString(2);
