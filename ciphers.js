@@ -237,17 +237,14 @@ function A_decode(input) {
     chunks[0] = chunks[0].replaceAll(pair[1], pair[0]);
   }
   if (start && chunks) {
-    let split = [];
-    for (let i = 0; i < chunks[1].length; i += 2) {
-      split.push(chunks[1].substring(i, i + 2));
-    }
+    let split = chunks[1].split("");
     if (split[split.length - 1].length == 1) {
       split[split.length - 1] += "0";
     }
     let bin = "";
     for (let pair in split) {
       let nibble = parseInt(split[pair], 16).toString(2);
-      while (nibble.length < 8) {
+      while (nibble.length < 4) {
         nibble = "0" + nibble;
       }
       bin += nibble;
