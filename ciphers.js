@@ -195,7 +195,6 @@ function A_encode(input) {
   let bin = "";
   input = input.replaceAll(" ", "¬");
   let i = 0;
-  let flag = "";
   while (i < input.length) {
     if (ike.includes(input[i].toLowerCase())) {
       for (let pair of angry) {
@@ -209,14 +208,9 @@ function A_encode(input) {
       encode += input[i];
       bin += "ඞ";
     }
-    //When you try to add a 0 in front of a string.
-    if (bin == "ඞ"){
-      flag = ".";
-    }
     i++;
     if (bin.length == 4){
       bin = bin.replaceAll("ඞ","0");
-      console.log(bin);
       waste += parseInt(bin,2).toString(16).toUpperCase();
       bin = "";
     }
@@ -226,7 +220,7 @@ function A_encode(input) {
     bin = bin.replaceAll("ඞ","0");
     waste += parseInt(bin,2).toString(16).toUpperCase();
   }
-  encode = encode + kijetesantakalu + waste + flag;
+  encode = encode + kijetesantakalu + waste;
   encode = encode.replaceAll("¬", " ");
   return encode;
 }
@@ -239,20 +233,37 @@ function A_decode(input) {
   for (let pair of angry){
     chunks[0] = chunks[0].replaceAll(pair[1],pair[0]);
   }
-  let flag = (chunks[1].slice(-1) == ".");
-  chunks[1] = parseInt(chunks[1],16).toString(2).replaceAll("0","ඞ");
-  if (flag){
-    chunks[1] = "ඞ" + chunks[1];
-  }
-  let i = 0, j = 0;
-  console.log(start,chunks[0],chunks[1]);
-  for (let bit of chunks[1]){
-    if (bit == "1"){
-       decode += chunks[0][i];
-       i++;
-    } else {
-      decode += start[j];
-      j++;
+  if (start && chunks){
+    let split = [];
+    for (let i = 0; i < chunks[1].length; i += 2){
+      split.push(chunks[1].substring(i, i+2));
+    }
+    if (split[split.length-1].length == 1){
+      split[split.length-1] += "0";
+    }
+    let bin = "";
+    for (let pair in split){
+      let nibble = parseInt(split[pair],16).toString(2);
+      while (nibble.length < 8){
+        nibble = "0" + nibble;
+      }
+      bin += nibble;
+    }
+    let i = 0, j = 0;
+    for (let bit of bin){
+      if (bit == "1"){
+        if (chunks[0][i] == null){
+          continue;
+        }
+        decode += chunks[0][i];
+        i++;
+      } else {
+        if (start[j] == null){
+          continue;
+        }
+        decode += start[j];
+        j++;
+      }
     }
   }
   decode = decode.replaceAll("¬", " ");
@@ -267,20 +278,20 @@ let globalOut = "";
 const output = $("#output");
 function update() {
   let outputText = finalInput;
-  switch (currentCipher) {
-    case "K":
-      outputText = encoding ? K_encode(finalInput) : K_decode(finalInput);
-      break;
-    case "L":
-      outputText = encoding ? L_encode(finalInput) : L_decode(finalInput);
-      break;
-    case "M":
-      outputText = encoding ? M_encode(finalInput) : M_decode(finalInput);
-      break;
-    case "A":
-      outputText = encoding ? A_encode(finalInput) : A_decode(finalInput);
-      break;
-  }
+    switch (currentCipher) {
+      case "K":
+        outputText = encoding ? K_encode(finalInput) : K_decode(finalInput);
+        break;
+      case "L":
+        outputText = encoding ? L_encode(finalInput) : L_decode(finalInput);
+        break;
+      case "M":
+        outputText = encoding ? M_encode(finalInput) : M_decode(finalInput);
+        break;
+      case "A":
+        outputText = encoding ? A_encode(finalInput) : A_decode(finalInput);
+        break;
+    }
   $("#output").val(outputText);
   globalOut = outputText;
 }
@@ -310,7 +321,6 @@ $(document).ready(function () {
     const dropvalue = dropdown.val();
     currentCipher = dropvalue;
     finalInput = input.val();
-    console.log(dropvalue);
     update();
   });
   $("#encodetoggle").click(function () {
