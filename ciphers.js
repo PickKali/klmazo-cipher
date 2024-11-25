@@ -190,58 +190,75 @@ const angry = [
 ];
 function A_encode(input) {
   let encode = "";
-  let append = "🦝";
+  let kijetesantakalu = "🦝";
+  let waste = "🗑️";
+  let bin = "";
   input = input.replaceAll(" ", "¬");
   let i = 0;
+  let flag = "";
   while (i < input.length) {
     if (ike.includes(input[i].toLowerCase())) {
-      encode += "ඞ";
       for (let pair of angry) {
         if (input[i].toLowerCase() == pair[0]) {
-          append += pair[1];
+          kijetesantakalu += pair[1];
           break;
         }
       }
+      bin += "1";
     } else {
       encode += input[i];
-      if (input[i] == "¬") {
-        append += "¬";
-      }
+      bin += "ඞ";
+    }
+    //When you try to add a 0 in front of a string.
+    if (bin == "ඞ"){
+      flag = ".";
     }
     i++;
+    if (bin.length == 4){
+      bin = bin.replaceAll("ඞ","0");
+      console.log(bin);
+      waste += parseInt(bin,2).toString(16).toUpperCase();
+      bin = "";
+    }
   }
-  encode = encode + append;
-  encode = encode.replaceAll("¬", "\u2009").replaceAll("ඞ", "\u200a");
+  if (bin.length > 0){
+    bin.padEnd(4,"ඞ");
+    bin = bin.replaceAll("ඞ","0");
+    waste += parseInt(bin,2).toString(16).toUpperCase();
+  }
+  encode = encode + kijetesantakalu + waste + flag;
+  encode = encode.replaceAll("¬", " ");
   return encode;
 }
 function A_decode(input) {
   let decode = "";
-  input = input.replaceAll("\u200a", "ඞ").replaceAll("\u2009", "¬");
-  let halves = input.split("🦝");
-  let i = 0;
-  let second = 0;
-
-  while (i < halves[0].length) {
-    if (halves[0][i] == "ඞ" || halves[0][i] == "¬") {
-      if (halves[0][i] == "ඞ" && second < halves[0].length) {
-        for (let pair of angry) {
-          if (halves[1][second] == pair[1]) {
-            decode += pair[0];
-            break;
-          }
-        }
-      } else {
-        decode += "\u0020";
-      }
-      second++;
-    } else {
-      decode += halves[0][i];
-    }
-    i++;
+  input = input.replaceAll(" ", "¬");
+  let chunks = input.split("🦝");
+  let start = chunks[0];
+  chunks = chunks[1].split("🗑️");
+  for (let pair of angry){
+    chunks[0] = chunks[0].replaceAll(pair[1],pair[0]);
   }
+  let flag = (chunks[1].slice(-1) == ".");
+  chunks[1] = parseInt(chunks[1],16).toString(2).replaceAll("0","ඞ");
+  if (flag){
+    chunks[1] = "ඞ" + chunks[1];
+  }
+  let i = 0, j = 0;
+  console.log(start,chunks[0],chunks[1]);
+  for (let bit of chunks[1]){
+    if (bit == "1"){
+       decode += chunks[0][i];
+       i++;
+    } else {
+      decode += start[j];
+      j++;
+    }
+  }
+  decode = decode.replaceAll("¬", " ");
   return decode;
 }
-// es, t is is a  e ault te t  o .🦝- ^   #$ ) !)
+//es, tis is a eault tet o.🦝-^#$)!)🗑️8201404A
 
 let finalInput = "";
 let currentCipher = "";
